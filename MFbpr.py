@@ -9,9 +9,9 @@ class MFbpr(object):
     '''
     Implementation of MF + BPR using tensorflow APIs
     '''
-    def __init__(self, train, test, num_user, num_item, 
-                 hidden_dims=20, Optimizer=tf.train.GradientDescentOptimizer, learning_rate=0.01, reg=0.0001, topK=100, init_mean=0.0, init_stdev=0.1):
-
+    def __init__(self, train, test, num_user, num_item, hidden_dims=20, 
+                 Optimizer=tf.train.GradientDescentOptimizer, learning_rate=0.01, 
+                 reg=0.0001, topK=100, init_mean=0.0, init_stdev=0.1):
         self.train = train
         self.test = test
         self.num_user = num_user
