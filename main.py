@@ -16,7 +16,7 @@ if __name__ == '__main__':
     reg = 0.01
     init_mean = 0
     init_stdev = 0.01
-    maxIter = 5
+    maxIter = 100
     batch_size = 32
     topK = 100
     Optimizer = tf.train.AdamOptimizer
