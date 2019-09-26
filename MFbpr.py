@@ -68,9 +68,9 @@ class MFbpr(object):
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
             # training process
-            t1 = time.time()
+            # each training epoch
             for iteration in range(maxIter):
-                # each training epoch
+                t1 = time.time()
                 for _ in range(self.num_rating // self.batch_size):
                     uij_train = self.get_batch()
                     sess.run([self.sgd_step], feed_dict={ # optimization
@@ -79,15 +79,15 @@ class MFbpr(object):
                              self.j: uij_train[:, 2]})
                 print('Have finished epoch {}.'.format(iteration + 1))
 
-            # check performance
-            t2 = time.time()
-            variable_names = [v.name for v in tf.trainable_variables()]
-            self.parameters = sess.run(variable_names)
-            # self.parameters[0] ==> latent matrix for users
-            # self.parameters[1] ==> latent matrix for items
-            hits, ndcgs = evaluate_model(self, self.test, self.topK)
-            print('Iter: {} [{:.2f} s] HitRatio@{} = {:.4f}, NDCG@{} = {:.4f} [{:.2f} s]'.format(
-                  iteration + 1, t2 - t1, self.topK, np.array(hits).mean(), self.topK, np.array(ndcgs).mean(), time.time() - t2))
+                # check performance
+                t2 = time.time()
+                variable_names = [v.name for v in tf.trainable_variables()]
+                self.parameters = sess.run(variable_names)
+                # self.parameters[0] ==> latent matrix for users
+                # self.parameters[1] ==> latent matrix for items
+                hits, ndcgs = evaluate_model(self, self.test, self.topK)
+                print('Iter: {} [{:.2f} s] HitRatio@{} = {:.4f}, NDCG@{} = {:.4f} [{:.2f} s]'.format(
+                      iteration + 1, t2 - t1, self.topK, np.array(hits).mean(), self.topK, np.array(ndcgs).mean(), time.time() - t2))
 
     def score(self, u, i):
         return np.inner(self.parameters[0][u], self.parameters[1][i])
