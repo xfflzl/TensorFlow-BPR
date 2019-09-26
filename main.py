@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     hidden_dims = 10
     learning_rate = 0.01
-    reg = 0.01
+    reg = 0.0001
     init_mean = 0
     init_stdev = 0.01
     maxIter = 100
