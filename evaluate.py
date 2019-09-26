@@ -43,7 +43,7 @@ def eval_one_rating(idx):
             break
     if early_stop == False:
         ranklist = heapq.nlargest(_K, map_item_score, key=map_item_score.get)
-        hr = hr = getHitRatio(ranklist, gtItem)
+        hr = getHitRatio(ranklist, gtItem)
         ndcg = getNDCG(ranklist, gtItem)
 
     return hr, ndcg
